@@ -10,11 +10,15 @@ const EmptyBoard = () => {
       alignItems='center'
       flexDirection='column'
     >
-      <Box textAlign={'center'} position='absolute' top='0'>
-        <Typography variant='h6'>Hello World</Typography>
+      <Box textAlign={'center'} position='absolute' top={'2rem'}>
+        <Typography variant='subtitle1'>Hello World</Typography>
       </Box>
       <Box>
-        <Button variant='contained' color='primary'>
+        <Button
+          variant='contained'
+          color='primary'
+          sx={{ border: '1px solid' }}
+        >
           Create Your First Task ;)
         </Button>
       </Box>
