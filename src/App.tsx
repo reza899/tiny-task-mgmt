@@ -1,10 +1,11 @@
 import React from 'react';
+import TinyTaskProvider from './Context/store';
 
 function App() {
   return (
-    <h1>
+    <TinyTaskProvider>
       Tiny Task Management
-    </h1>
+    </TinyTaskProvider>
   );
 }
 
