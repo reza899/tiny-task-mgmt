@@ -1,11 +1,19 @@
-import React from 'react';
-import TinyTaskProvider from './Context/store';
+import { Grid } from '@mui/material';
+import React, { useContext } from 'react';
+import EmptyBoard from './Components/EmptyBoard';
+import TaskCards from './Containers/TaskCards';
+import TinyTaskProvider, { TinyTaskContext } from './Context/store';
 
 function App() {
+  const { tasks } = useContext(TinyTaskContext);
+
   return (
-    <TinyTaskProvider>
-      Tiny Task Management
-    </TinyTaskProvider>
+    <Grid container minHeight={'100vh'}>
+      <TinyTaskProvider>
+        {(tasks === undefined || tasks?.length === 0) && <EmptyBoard />}
+        {tasks && <TaskCards tasks={tasks} />}
+      </TinyTaskProvider>
+    </Grid>
   );
 }
 
