@@ -9,7 +9,7 @@ interface TaskCardsProps {
 
 const TaskCards: React.FC<TaskCardsProps> = ({ tasks }) => (
   <>
-    {tasks?.length !> 0 ? (
+    {tasks?.length > 0 ? (
       tasks.map((task) => <TaskCard key={task.id} task={task} />)
     ) : (
       <EmptyBoard />
