@@ -9,7 +9,7 @@ const TinyTaskProvider = ({ children }: { children: React.ReactNode }) => {
   const [tasks, setTasks] = React.useState<TinyTask[]>([]);
 
   const addTask = useCallback(
-    (task: TinyTask) => {
+    (task: TinyTask) => !{
       setTasks([...tasks, task]);
     },
     [tasks],
