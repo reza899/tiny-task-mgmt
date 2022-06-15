@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import { ModalContext } from '../../Context/modalStore';
 
 interface ModalProps {
@@ -7,7 +7,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ children }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const { isOpen, onClose } = useContext(ModalContext);
   return (
@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
         <>
           <Box
             sx={{
-              backgroundColor: theme.palette.background.paper,
+              backgroundColor: '#FFF',
               position: 'fixed',
               top: 0,
               left: 0,
@@ -27,11 +27,18 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
           ></Box>
           <Box
             sx={{
-              borderRadius: '24px 10px',
-              backgroundColor: theme.palette.secondary.main,
+              borderRadius: '48px',
+              backgroundColor: '#EDEDED',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              flexDirection: 'column',
+              zIndex: 1,
+              padding: '36px',
+              gap: '8px',
+              maxWidth: '50vw',
+              maxHeight: '500px',
+              margin: 'auto',
             }}
           >
             {React.Children.map(children, (child) => {

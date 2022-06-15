@@ -43,7 +43,7 @@ const AddTask = () => {
       <RadioGroup
         row
         name='row-radio-buttons-group'
-        sx={{ justifyContent: 'space-between', minWidth: '100vw' }}
+        sx={{ justifyContent: 'space-between', minWidth: '30vw' }}
       >
         <FormControlLabel
           value='Low'

@@ -16,12 +16,16 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     setOpenModal(false);
   };
 
+  const openModalHandler = () => {
+    setOpenModal(true);
+  };
+
   return (
     <ModalContext.Provider
       value={{
         isOpen: openModal,
         onClose: closeModalHandler,
-        setOpen: setOpenModal,
+        setOpen: openModalHandler,
       }}
     >
       {children}

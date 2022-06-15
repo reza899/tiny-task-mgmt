@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import React, { useContext } from 'react';
 import EmptyBoard from './Components/EmptyBoard';
 import TaskCards from './Containers/TaskCards';
+import ModalProvider from './Context/modalStore';
 import TinyTaskProvider, { TinyTaskContext } from './Context/TinyTaskStore';
 
 function App() {
@@ -10,8 +11,10 @@ function App() {
   return (
     <Grid container minHeight={'100vh'}>
       <TinyTaskProvider>
-        {(tasks === undefined || tasks?.length === 0) && <EmptyBoard />}
-        {tasks && <TaskCards tasks={tasks} />}
+        <ModalProvider>
+          {(tasks === undefined || tasks?.length === 0) && <EmptyBoard />}
+          {tasks && <TaskCards tasks={tasks} />}
+        </ModalProvider>
       </TinyTaskProvider>
     </Grid>
   );

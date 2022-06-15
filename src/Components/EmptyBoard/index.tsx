@@ -1,7 +1,10 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../Context/modalStore';
 
 const EmptyBoard = () => {
+  const { setOpen, isOpen } = useContext(ModalContext);
+
   return (
     <Grid
       container
@@ -13,15 +16,18 @@ const EmptyBoard = () => {
       <Box textAlign={'center'} position='absolute' top={'2rem'}>
         <Typography variant='subtitle1'>Hello World</Typography>
       </Box>
-      <Box>
-        <Button
-          variant='contained'
-          color='primary'
-          sx={{ border: '1px solid' }}
-        >
-          Create Your First Task ;)
-        </Button>
-      </Box>
+      {!isOpen && (
+        <Box>
+          <Button
+            variant='contained'
+            color='primary'
+            sx={{ border: '1px solid' }}
+            onClick={setOpen}
+          >
+            Create Your First Task ;)
+          </Button>
+        </Box>
+      )}
     </Grid>
   );
 };
