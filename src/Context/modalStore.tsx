@@ -1,5 +1,5 @@
-import React from 'react';
-import { ModalStore } from '../Models/Modal.model';
+import React, { useCallback, useMemo } from "react";
+import { ModalStore } from "../Models/Modal.model";
 
 const initialState = {
   isOpen: false,
@@ -12,22 +12,25 @@ export const ModalContext = React.createContext<ModalStore>(initialState);
 const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
-  const closeModalHandler = () => {
+  const closeModalHandler = useCallback(() => {
     setOpenModal(false);
-  };
+  }, []);
 
-  const openModalHandler = () => {
+  const openModalHandler = useCallback(() => {
     setOpenModal(true);
-  };
+  }, []);
+
+  const modalContextValue = useMemo(
+    () => ({
+      isOpen: openModal,
+      onClose: closeModalHandler,
+      setOpen: openModalHandler,
+    }),
+    [closeModalHandler, openModal, openModalHandler],
+  );
 
   return (
-    <ModalContext.Provider
-      value={{
-        isOpen: openModal,
-        onClose: closeModalHandler,
-        setOpen: openModalHandler,
-      }}
-    >
+    <ModalContext.Provider value={modalContextValue}>
       {children}
     </ModalContext.Provider>
   );

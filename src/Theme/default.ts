@@ -1,5 +1,5 @@
-import { createTheme } from '@mui/material';
-import { blue, orange, teal } from '@mui/material/colors';
+import { createTheme } from "@mui/material";
+import { orange, teal } from "@mui/material/colors";
 
 const theme = createTheme({
   shape: {

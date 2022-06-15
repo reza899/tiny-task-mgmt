@@ -1,12 +1,10 @@
-import React from 'react';
-import { TinyTask } from '../../Models/TinyTaskStore.model';
+import React from "react";
+import { TinyTask } from "../../Models/TinyTaskStore.model";
 
 interface TaskCardProps {
-    task: TinyTask;
+  task: TinyTask;
 }
 
-const TaskCard:React.FC<TaskCardProps> = ({task}) => {
-  return <div>index</div>;
-};
+const TaskCard: React.FC<TaskCardProps> = ({ task }) => <div>{task.id}</div>;
 
 export default TaskCard;

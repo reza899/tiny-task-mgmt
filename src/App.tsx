@@ -1,15 +1,15 @@
-import { Grid } from '@mui/material';
-import React, { useContext } from 'react';
-import EmptyBoard from './Components/EmptyBoard';
-import TaskCards from './Containers/TaskCards';
-import ModalProvider from './Context/modalStore';
-import TinyTaskProvider, { TinyTaskContext } from './Context/TinyTaskStore';
+import { Grid } from "@mui/material";
+import React, { useContext } from "react";
+import EmptyBoard from "./Components/EmptyBoard";
+import TaskCards from "./Containers/TaskCards";
+import ModalProvider from "./Context/modalStore";
+import TinyTaskProvider, { TinyTaskContext } from "./Context/TinyTaskStore";
 
-function App() {
+const App = () => {
   const { tasks } = useContext(TinyTaskContext);
 
   return (
-    <Grid container minHeight={'100vh'}>
+    <Grid container minHeight="100vh">
       <TinyTaskProvider>
         <ModalProvider>
           {(tasks === undefined || tasks?.length === 0) && <EmptyBoard />}
@@ -18,6 +18,6 @@ function App() {
       </TinyTaskProvider>
     </Grid>
   );
-}
+};
 
 export default App;

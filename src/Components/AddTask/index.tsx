@@ -1,15 +1,10 @@
-import React from 'react';
-import {
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from '@mui/material';
-import { green, red, yellow } from '@mui/material/colors';
-import theme from '../../Theme/default';
+import React from "react";
+import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { green, red, yellow } from "@mui/material/colors";
+import theme from "../../Theme/default";
 
 const AddTask = () => {
-  const [selectedPriority, setSelectedPriority] = React.useState('Low');
+  const [selectedPriority, setSelectedPriority] = React.useState("Low");
 
   const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPriority(event.target.value);
@@ -20,84 +15,84 @@ const AddTask = () => {
     onChange: handlePriorityChange,
     value: item,
     name: `priority-radio-${item}`,
-    inputProps: { 'aria-label': item },
+    inputProps: { "aria-label": item },
     fontSize: 128,
   });
 
   return (
     <>
-      <TextField name='task-tile' placeholder='Task Title' fullWidth />
+      <TextField name="task-tile" placeholder="Task Title" fullWidth />
       <TextField
-        name='task-description'
-        placeholder='Task Description'
+        name="task-description"
+        placeholder="Task Description"
         multiline
         fullWidth
         minRows={4}
       />
       <TextField
-        name='task-extra'
-        placeholder='Gifts and KPI for this task ;)'
+        name="task-extra"
+        placeholder="Gifts and KPI for this task ;)"
         fullWidth
       />
 
       <RadioGroup
         row
-        name='row-radio-buttons-group'
-        sx={{ justifyContent: 'space-between', minWidth: '30vw' }}
+        name="row-radio-buttons-group"
+        sx={{ justifyContent: "space-between", minWidth: "30vw" }}
       >
         <FormControlLabel
-          value='Low'
+          value="Low"
           control={
             <Radio
-              {...priorityProps('Low')}
+              {...priorityProps("Low")}
               sx={{
                 color: theme.palette.secondary.main,
-                '& .MuiSvgIcon-root': {
+                "& .MuiSvgIcon-root": {
                   fontSize: 60,
                 },
-                '&.Mui-checked': {
+                "&.Mui-checked": {
                   color: red[900],
                 },
               }}
             />
           }
-          label='Low'
+          label="Low"
         />
         <FormControlLabel
-          value='Medium'
+          value="Medium"
           control={
             <Radio
-              {...priorityProps('Meidum')}
+              {...priorityProps("Meidum")}
               sx={{
                 color: theme.palette.secondary.main,
-                '& .MuiSvgIcon-root': {
+                "& .MuiSvgIcon-root": {
                   fontSize: 60,
                 },
-                '&.Mui-checked': {
+                "&.Mui-checked": {
                   color: yellow[500],
                 },
               }}
             />
           }
-          label='Medium'
+          label="Medium"
         />
         <FormControlLabel
-          value='High'
+          value="High"
           control={
             <Radio
-              {...priorityProps('High')}
+              {...priorityProps("High")}
               sx={{
                 color: theme.palette.secondary.main,
-                '& .MuiSvgIcon-root': {
+                "& .MuiSvgIcon-root": {
                   fontSize: 60,
                 },
-                '&.Mui-checked': {
+                "&.Mui-checked": {
                   color: green[500],
                 },
               }}
             />
           }
-          label='High'
+          label="High"
         />
       </RadioGroup>
     </>
