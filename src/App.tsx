@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React, { useContext } from 'react';
 import EmptyBoard from './Components/EmptyBoard';
 import TaskCards from './Containers/TaskCards';
-import TinyTaskProvider, { TinyTaskContext } from './Context/store';
+import TinyTaskProvider, { TinyTaskContext } from './Context/TinyTaskStore';
 
 function App() {
   const { tasks } = useContext(TinyTaskContext);
