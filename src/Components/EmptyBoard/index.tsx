@@ -8,11 +8,11 @@ const EmptyBoard = () => {
 
   return (
     <Grid
-      container
       display="flex"
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
+      margin="auto"
     >
       <Box textAlign="center" position="absolute" top="2rem">
         <Typography variant="subtitle1">Hello World</Typography>

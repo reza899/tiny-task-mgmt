@@ -29,7 +29,7 @@ const Modal: React.FC = () => {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
-              zIndex: 1,
+              zIndex: 100,
               padding: "36px",
               gap: "8px",
               maxWidth: "50vw",

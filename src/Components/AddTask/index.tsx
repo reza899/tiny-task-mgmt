@@ -27,10 +27,6 @@ const AddTask = () => {
   const { onClose } = useContext(ModalContext);
   const { addTask: addNewTask } = useContext(TinyTaskContext);
 
-  // const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setTaskValues({event.target.value as PriorityType});
-  // };
-
   const fieldOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskValues({
       ...taskValues,
