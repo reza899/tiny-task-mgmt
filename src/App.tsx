@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React, { useContext } from "react";
-import EmptyBoard from "./Components/EmptyBoard";
+import Modal from "./Containers/Modal";
 import TaskCards from "./Containers/TaskCards";
 import ModalProvider from "./Context/modalStore";
 import TinyTaskProvider, { TinyTaskContext } from "./Context/TinyTaskStore";
@@ -12,8 +12,8 @@ const App = () => {
     <Grid container minHeight="100vh">
       <TinyTaskProvider>
         <ModalProvider>
-          {(tasks === undefined || tasks?.length === 0) && <EmptyBoard />}
-          {tasks && <TaskCards tasks={tasks} />}
+          <TaskCards tasks={tasks} />
+          <Modal />
         </ModalProvider>
       </TinyTaskProvider>
     </Grid>

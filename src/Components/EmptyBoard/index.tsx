@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { ModalContext } from "../../Context/modalStore";
+import AddTask from "../AddTask";
 
 const EmptyBoard = () => {
   const { setOpen, isOpen } = useContext(ModalContext);
@@ -22,7 +23,7 @@ const EmptyBoard = () => {
             variant="contained"
             color="primary"
             sx={{ border: "1px solid" }}
-            onClick={setOpen}
+            onClick={() => setOpen(<AddTask />)}
           >
             Create Your First Task ;)
           </Button>

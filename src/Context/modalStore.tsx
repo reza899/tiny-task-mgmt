@@ -5,18 +5,22 @@ const initialState = {
   isOpen: false,
   onClose: () => {},
   setOpen: () => {},
+  renderComponent: null,
 };
 
 export const ModalContext = React.createContext<ModalStore>(initialState);
 
 const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [renderComponent, setRenderComponent] =
+    React.useState<React.ReactNode | null>(null);
 
   const closeModalHandler = useCallback(() => {
     setOpenModal(false);
   }, []);
 
-  const openModalHandler = useCallback(() => {
+  const openModalHandler = useCallback((renderComp: React.ReactNode) => {
+    setRenderComponent(renderComp);
     setOpenModal(true);
   }, []);
 
@@ -25,8 +29,9 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
       isOpen: openModal,
       onClose: closeModalHandler,
       setOpen: openModalHandler,
+      renderComponent,
     }),
-    [closeModalHandler, openModal, openModalHandler],
+    [closeModalHandler, openModal, openModalHandler, renderComponent],
   );
 
   return (

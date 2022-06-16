@@ -2,14 +2,10 @@ import React, { useContext } from "react";
 import { Box } from "@mui/material";
 import { ModalContext } from "../../Context/modalStore";
 
-interface ModalProps {
-  children: React.ReactNode;
-}
-
-const Modal: React.FC<ModalProps> = ({ children }) => {
+const Modal: React.FC = () => {
   // const theme = useTheme();
 
-  const { isOpen, onClose } = useContext(ModalContext);
+  const { isOpen, onClose, renderComponent } = useContext(ModalContext);
   return (
     <>
       {isOpen && (
@@ -41,9 +37,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
               margin: "auto",
             }}
           >
-            {React.Children.map(children, (child) =>
-              React.cloneElement(child as React.ReactElement<any>),
-            )}
+            {renderComponent}
           </Box>
         </>
       )}
