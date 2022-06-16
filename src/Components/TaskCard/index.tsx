@@ -8,9 +8,10 @@ import ShowTask from "../ShowTask";
 
 interface TaskCardProps {
   task: TinyTask;
+  actionable: boolean;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, actionable }) => {
   const { doneTask } = useContext(TinyTaskContext);
   const { setOpen } = useContext(ModalContext);
 
@@ -34,6 +35,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         justifyContent: "space-between",
         border: "1px solid black",
         borderRadius: "24px",
+        backgroundColor:
+          task.status === "DONE" && actionable ? "#EFEFEF" : "#FFFFFF",
       }}
     >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -59,24 +62,26 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
             }}
           />
         </Box>
-        <Box>
-          <Button
-            onClick={doneTaskHandler}
-            variant="contained"
-            color="primary"
-            sx={{ border: "1px solid", maxHeight: "20px" }}
-          >
-            Done Task
-          </Button>
-          <Button
-            onClick={editTaskHandler}
-            variant="contained"
-            color="success"
-            sx={{ border: "1px solid", maxHeight: "20px" }}
-          >
-            Edit Task
-          </Button>
-        </Box>
+        {actionable && (
+          <Box>
+            <Button
+              onClick={doneTaskHandler}
+              variant="contained"
+              color="primary"
+              sx={{ border: "1px solid", maxHeight: "20px" }}
+            >
+              Done Task
+            </Button>
+            <Button
+              onClick={editTaskHandler}
+              variant="contained"
+              color="success"
+              sx={{ border: "1px solid", maxHeight: "20px" }}
+            >
+              Edit Task
+            </Button>
+          </Box>
+        )}
       </Box>
     </Card>
   );

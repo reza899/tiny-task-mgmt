@@ -29,6 +29,7 @@ const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
           variant="contained"
           sx={{ margin: "8px" }}
           onClick={() => setOpen(<EditTask task={task} />)}
+          disabled={task.status === "DONE"}
         >
           Edit Task
         </Button>
@@ -36,6 +37,7 @@ const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
           variant="contained"
           sx={{ margin: "8px" }}
           onClick={() => doneTask(task.id)}
+          disabled={task.status === "DONE"}
         >
           Done Task
         </Button>
