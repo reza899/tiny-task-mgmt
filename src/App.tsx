@@ -6,7 +6,12 @@ import TinyTaskProvider from "./Context/TinyTaskStore";
 
 const App = () => {
   return (
-    <Grid container minHeight="100vh" flexDirection="column">
+    <Grid
+      container
+      minHeight="100vh"
+      flexDirection="column"
+      sx={{ padding: "48px" }}
+    >
       <TinyTaskProvider>
         <ModalProvider>
           <TaskCards />

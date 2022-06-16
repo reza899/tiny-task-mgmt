@@ -18,6 +18,7 @@ const Modal: React.FC = () => {
               left: 0,
               minWidth: "100vw",
               minHeight: "100vh",
+              zIndex: 1,
             }}
             onClick={onClose}
           />

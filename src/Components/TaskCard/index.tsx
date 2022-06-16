@@ -16,7 +16,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
       sx={{
         display: "flex",
         padding: "8px 16px",
-        margin: "48px",
+        margin: "24px",
         justifyContent: "space-between",
         border: "1px solid black",
         borderRadius: "24px",
