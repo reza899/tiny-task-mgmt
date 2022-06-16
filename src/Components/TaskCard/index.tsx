@@ -1,7 +1,9 @@
 import { Box, Button, Card, Typography } from "@mui/material";
 import React, { useContext } from "react";
+import { ModalContext } from "../../Context/modalStore";
 import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
+import EditTask from "../EditTask";
 
 interface TaskCardProps {
   task: TinyTask;
@@ -9,12 +11,15 @@ interface TaskCardProps {
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const { doneTask } = useContext(TinyTaskContext);
+  const { setOpen } = useContext(ModalContext);
 
   const doneTaskHandler = () => {
     doneTask(task.id);
   };
 
-  const editTaskHandler = () => {};
+  const editTaskHandler = () => {
+    setOpen(<EditTask task={task} />);
+  };
 
   return (
     <Card
