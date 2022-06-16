@@ -8,6 +8,7 @@ import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import Modal from "../Modal";
 import { ModalContext } from "../../Context/modalStore";
 import AddTask from "../../Components/AddTask";
+import DoneTasks from "../DoneTasks";
 
 const TaskCards = () => {
   const { tasks } = useContext(TinyTaskContext);
@@ -18,14 +19,26 @@ const TaskCards = () => {
       {tasks?.length > 0 ? (
         <>
           <Grid>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setOpen(<DoneTasks />)}
+              disabled={
+                tasks.filter((task) => task.status === "DONE").length === 0
+              }
+            >
               View Done Tasks
             </Button>
           </Grid>
           <Grid>
-            {tasks.map((task) => (
-              <TaskCard key={task.id} task={task} />
-            ))}
+            {tasks
+              .sort((a, b) =>
+                a.status === "DONE" && b.status !== "DONE" ? 1 : -1,
+              )
+              .sort((a, b) => a.priority.order - b.priority.order)
+              .map((task) => (
+                <TaskCard key={task.id} task={task} actionable />
+              ))}
           </Grid>
 
           <Grid

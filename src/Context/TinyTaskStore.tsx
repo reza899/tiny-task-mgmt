@@ -1,5 +1,9 @@
 import React, { useCallback, useMemo } from "react";
-import { TinyTask, TinyTaskStore } from "../Models/TinyTaskStore.model";
+import {
+  PriorityInfo,
+  TinyTask,
+  TinyTaskStore,
+} from "../Models/TinyTaskStore.model";
 
 export const TinyTaskContext = React.createContext<TinyTaskStore>(
   {} as TinyTaskStore,
@@ -56,6 +60,12 @@ const TinyTaskProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </TinyTaskContext.Provider>
   );
+};
+
+export const priorityDetails: { [key: string]: PriorityInfo } = {
+  Low: { cw: "Low", color: "red", order: 3 },
+  Medium: { cw: "Medium", color: "yellow", order: 2 },
+  High: { cw: "High", color: "green", order: 1 },
 };
 
 export default TinyTaskProvider;

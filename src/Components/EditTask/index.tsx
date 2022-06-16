@@ -1,4 +1,4 @@
-import React, { useContext, useId } from "react";
+import React, { useContext } from "react";
 import {
   Button,
   FormControlLabel,
@@ -10,22 +10,24 @@ import { green, red, yellow } from "@mui/material/colors";
 import theme from "../../Theme/default";
 import { ModalContext } from "../../Context/modalStore";
 import { priorityDetails, TinyTaskContext } from "../../Context/TinyTaskStore";
-import { PriorityInfo, TinyTask } from "../../Models/TinyTaskStore.model";
+import { TinyTask } from "../../Models/TinyTaskStore.model";
 
-const AddTask = () => {
-  const uniqId = useId();
+interface EditTaskProps {
+  task: TinyTask;
+}
 
+const EditTask: React.FC<EditTaskProps> = ({ task }) => {
   const [taskValues, setTaskValues] = React.useState<TinyTask>({
-    id: uniqId,
-    title: "",
-    description: "",
-    priority: priorityDetails.Low as PriorityInfo,
-    extra: "",
-    status: "IN_PROGRESS",
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    priority: task.priority,
+    extra: task.extra,
+    status: task.status,
   });
 
   const { onClose } = useContext(ModalContext);
-  const { addTask: addNewTask } = useContext(TinyTaskContext);
+  const { updateTask } = useContext(TinyTaskContext);
 
   const fieldOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskValues({
@@ -50,8 +52,8 @@ const AddTask = () => {
     fontSize: 128,
   });
 
-  const addTaskHandler = () => {
-    addNewTask(taskValues);
+  const editTaskHandler = () => {
+    updateTask(taskValues);
     onClose();
   };
 
@@ -144,12 +146,12 @@ const AddTask = () => {
       <Button
         variant="contained"
         sx={{ width: "50%" }}
-        onClick={addTaskHandler}
+        onClick={editTaskHandler}
       >
-        Add to Tasks
+        Update
       </Button>
     </>
   );
 };
 
-export default AddTask;
+export default EditTask;
