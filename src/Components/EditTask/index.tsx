@@ -9,7 +9,7 @@ import {
 import { green, red, yellow } from "@mui/material/colors";
 import theme from "../../Theme/default";
 import { ModalContext } from "../../Context/modalStore";
-import { TinyTaskContext } from "../../Context/TinyTaskStore";
+import { priorityDetails, TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
 
 interface EditTaskProps {
@@ -36,9 +36,16 @@ const EditTask: React.FC<EditTaskProps> = ({ task }) => {
     });
   };
 
+  const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskValues({
+      ...taskValues,
+      priority: priorityDetails[event.target.value],
+    });
+  };
+
   const priorityProps = (item: string) => ({
-    checked: taskValues.priority === item,
-    onChange: fieldOnChange,
+    checked: taskValues.priority.cw === item,
+    onChange: handlePriorityChange,
     value: item,
     name: `priority`,
     inputProps: { "aria-label": item },
@@ -103,7 +110,7 @@ const EditTask: React.FC<EditTaskProps> = ({ task }) => {
           value="Medium"
           control={
             <Radio
-              {...priorityProps("Meidum")}
+              {...priorityProps("Medium")}
               sx={{
                 color: theme.palette.secondary.main,
                 "& .MuiSvgIcon-root": {

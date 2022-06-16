@@ -1,10 +1,12 @@
 export type PriorityType = "Low" | "Medium" | "High";
+export type PriorityInfo = { cw: PriorityType; color: string; order: number };
+
 export interface TinyTask {
   id: string;
   title: string;
   description: string;
   extra: string;
-  priority: PriorityType;
+  priority: PriorityInfo;
   status: "IN_PROGRESS" | "DONE";
 }
 

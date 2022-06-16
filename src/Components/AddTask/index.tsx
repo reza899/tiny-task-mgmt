@@ -9,8 +9,8 @@ import {
 import { green, red, yellow } from "@mui/material/colors";
 import theme from "../../Theme/default";
 import { ModalContext } from "../../Context/modalStore";
-import { TinyTaskContext } from "../../Context/TinyTaskStore";
-import { TinyTask } from "../../Models/TinyTaskStore.model";
+import { priorityDetails, TinyTaskContext } from "../../Context/TinyTaskStore";
+import { PriorityInfo, TinyTask } from "../../Models/TinyTaskStore.model";
 
 const AddTask = () => {
   const uniqId = useId();
@@ -19,7 +19,7 @@ const AddTask = () => {
     id: uniqId,
     title: "",
     description: "",
-    priority: "Low",
+    priority: priorityDetails.Low as PriorityInfo,
     extra: "",
     status: "IN_PROGRESS",
   });
@@ -34,9 +34,16 @@ const AddTask = () => {
     });
   };
 
+  const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskValues({
+      ...taskValues,
+      priority: priorityDetails[event.target.value],
+    });
+  };
+
   const priorityProps = (item: string) => ({
-    checked: taskValues.priority === item,
-    onChange: fieldOnChange,
+    checked: taskValues.priority.cw === item,
+    onChange: handlePriorityChange,
     value: item,
     name: `priority`,
     inputProps: { "aria-label": item },
@@ -101,7 +108,7 @@ const AddTask = () => {
           value="Medium"
           control={
             <Radio
-              {...priorityProps("Meidum")}
+              {...priorityProps("Medium")}
               sx={{
                 color: theme.palette.secondary.main,
                 "& .MuiSvgIcon-root": {

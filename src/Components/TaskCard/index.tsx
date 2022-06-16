@@ -4,6 +4,7 @@ import { ModalContext } from "../../Context/modalStore";
 import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
 import EditTask from "../EditTask";
+import PriorityCircle from "../PriorityCircle";
 import ShowTask from "../ShowTask";
 
 interface TaskCardProps {
@@ -49,18 +50,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, actionable }) => {
       </Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Typography variant="subtitle1">{task.priority}</Typography>
-          <div
-            style={{
-              width: "24px",
-              height: "24px",
-              backgroundColor: "red",
-              borderRadius: "50%",
-              border: "1px solid black",
-              display: "inline-block",
-              marginLeft: "1rem",
-            }}
-          />
+          <Typography variant="subtitle1">{task.priority.cw}</Typography>
+          <PriorityCircle task={task} size="medium" />
         </Box>
         {actionable && (
           <Box>
@@ -69,6 +60,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, actionable }) => {
               variant="contained"
               color="primary"
               sx={{ border: "1px solid", maxHeight: "20px" }}
+              disabled={task.status === "DONE"}
             >
               Done Task
             </Button>
@@ -77,6 +69,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, actionable }) => {
               variant="contained"
               color="success"
               sx={{ border: "1px solid", maxHeight: "20px" }}
+              disabled={task.status === "DONE"}
             >
               Edit Task
             </Button>

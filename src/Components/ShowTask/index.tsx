@@ -4,6 +4,7 @@ import { ModalContext } from "../../Context/modalStore";
 import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
 import EditTask from "../EditTask";
+import PriorityCircle from "../PriorityCircle";
 
 interface ShowTaskProps {
   task: TinyTask;
@@ -15,8 +16,12 @@ const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid xs={2}>
-        <Typography variant="subtitle1">{task.priority}</Typography>
+      <Grid
+        xs={2}
+        style={{ display: "flex", flexDirection: "row", gap: "8px" }}
+      >
+        <PriorityCircle task={task} size="large" />
+        <Typography variant="subtitle1">{task.priority.cw}</Typography>
       </Grid>
       <Grid xs={10} textAlign="center">
         <Typography variant="h6">{task.title}</Typography>
