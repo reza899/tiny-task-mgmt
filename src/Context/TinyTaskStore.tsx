@@ -29,14 +29,26 @@ const TinyTaskProvider = ({ children }: { children: React.ReactNode }) => {
     [tasks],
   );
 
+  const doneTask = useCallback(
+    (taskId: string) => {
+      setTasks(
+        tasks.map((task) =>
+          task.id === taskId ? { ...task, status: "DONE" } : task,
+        ),
+      );
+    },
+    [tasks],
+  );
+
   const tinyTaskContextValue = useMemo(
     () => ({
       tasks,
       addTask,
       removeTask,
       updateTask,
+      doneTask,
     }),
-    [addTask, removeTask, tasks, updateTask],
+    [addTask, doneTask, removeTask, tasks, updateTask],
   );
 
   return (

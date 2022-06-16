@@ -13,4 +13,5 @@ export interface TinyTaskStore {
   addTask: (task: TinyTask) => void;
   removeTask: (id: string) => void;
   updateTask: (task: TinyTask) => void;
+  doneTask: (taskId: string) => void;
 }
