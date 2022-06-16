@@ -1,9 +1,10 @@
 import { Box, Button, Card, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { SyntheticEvent, useContext } from "react";
 import { ModalContext } from "../../Context/modalStore";
 import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
 import EditTask from "../EditTask";
+import ShowTask from "../ShowTask";
 
 interface TaskCardProps {
   task: TinyTask;
@@ -13,16 +14,19 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const { doneTask } = useContext(TinyTaskContext);
   const { setOpen } = useContext(ModalContext);
 
-  const doneTaskHandler = () => {
+  const doneTaskHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     doneTask(task.id);
   };
 
-  const editTaskHandler = () => {
+  const editTaskHandler = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setOpen(<EditTask task={task} />);
   };
 
   return (
     <Card
+      onClick={() => setOpen(<ShowTask task={task} />)}
       sx={{
         display: "flex",
         padding: "8px 16px",
