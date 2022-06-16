@@ -1,9 +1,10 @@
+export type PriorityType = "Low" | "Medium" | "High";
 export interface TinyTask {
   id: string;
   title: string;
   description: string;
   extra: string;
-  priority: "LOW" | "MEDIUM" | "HIGH";
+  priority: PriorityType;
   status: "IN_PROGRESS" | "DONE";
 }
 

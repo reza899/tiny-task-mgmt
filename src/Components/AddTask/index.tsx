@@ -1,43 +1,86 @@
-import React from "react";
-import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import React, { useContext, useId } from "react";
+import {
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
 import { green, red, yellow } from "@mui/material/colors";
 import theme from "../../Theme/default";
+import { ModalContext } from "../../Context/modalStore";
+import { TinyTaskContext } from "../../Context/TinyTaskStore";
+import { TinyTask } from "../../Models/TinyTaskStore.model";
 
 const AddTask = () => {
-  const [selectedPriority, setSelectedPriority] = React.useState("Low");
+  const uniqId = useId();
 
-  const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedPriority(event.target.value);
+  const [taskValues, setTaskValues] = React.useState<TinyTask>({
+    id: uniqId,
+    title: "",
+    description: "",
+    priority: "Low",
+    extra: "",
+    status: "IN_PROGRESS",
+  });
+
+  const { onClose } = useContext(ModalContext);
+  const { addTask: addNewTask } = useContext(TinyTaskContext);
+
+  // const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setTaskValues({event.target.value as PriorityType});
+  // };
+
+  const fieldOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskValues({
+      ...taskValues,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const priorityProps = (item: string) => ({
-    checked: selectedPriority === item,
-    onChange: handlePriorityChange,
+    checked: taskValues.priority === item,
+    onChange: fieldOnChange,
     value: item,
-    name: `priority-radio-${item}`,
+    name: `priority`,
     inputProps: { "aria-label": item },
     fontSize: 128,
   });
 
+  const addTaskHandler = () => {
+    addNewTask(taskValues);
+    onClose();
+  };
+
   return (
     <>
-      <TextField name="task-tile" placeholder="Task Title" fullWidth />
       <TextField
-        name="task-description"
+        name="title"
+        placeholder="Task Title"
+        fullWidth
+        onChange={fieldOnChange}
+        value={taskValues.title}
+      />
+      <TextField
+        name="description"
         placeholder="Task Description"
         multiline
         fullWidth
         minRows={4}
+        onChange={fieldOnChange}
+        value={taskValues.description}
       />
       <TextField
-        name="task-extra"
+        name="extra"
         placeholder="Gifts and KPI for this task ;)"
         fullWidth
+        onChange={fieldOnChange}
+        value={taskValues.extra}
       />
 
       <RadioGroup
         row
-        name="row-radio-buttons-group"
+        name="priority-radio-group"
         sx={{ justifyContent: "space-between", minWidth: "30vw" }}
       >
         <FormControlLabel
@@ -95,6 +138,13 @@ const AddTask = () => {
           label="High"
         />
       </RadioGroup>
+      <Button
+        variant="contained"
+        sx={{ width: "50%" }}
+        onClick={addTaskHandler}
+      >
+        Add to Tasks
+      </Button>
     </>
   );
 };
