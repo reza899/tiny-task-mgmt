@@ -12,7 +12,7 @@ interface ShowTaskProps {
 
 const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
   const { doneTask, removeTask } = useContext(TinyTaskContext);
-  const { setOpen } = useContext(ModalContext);
+  const { setOpen, onClose } = useContext(ModalContext);
 
   return (
     <Grid container justifyContent="center">
@@ -41,7 +41,10 @@ const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
         <Button
           variant="contained"
           sx={{ margin: "8px" }}
-          onClick={() => doneTask(task.id)}
+          onClick={() => {
+            doneTask(task.id);
+            onClose();
+          }}
           disabled={task.status === "DONE"}
         >
           Done Task
@@ -49,7 +52,10 @@ const ShowTask: React.FC<ShowTaskProps> = ({ task }) => {
         <Button
           variant="contained"
           sx={{ margin: "8px" }}
-          onClick={() => removeTask(task.id)}
+          onClick={() => {
+            removeTask(task.id);
+            onClose();
+          }}
         >
           Delete Task
         </Button>

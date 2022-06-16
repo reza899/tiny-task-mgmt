@@ -32,10 +32,10 @@ const TaskCards = () => {
           </Grid>
           <Grid>
             {tasks
+              .sort((a, b) => b.priority.order - a.priority.order)
               .sort((a, b) =>
                 a.status === "DONE" && b.status !== "DONE" ? 1 : -1,
               )
-              .sort((a, b) => a.priority.order - b.priority.order)
               .map((task) => (
                 <TaskCard key={task.id} task={task} actionable />
               ))}
