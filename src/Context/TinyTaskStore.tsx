@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import {
   PriorityInfo,
   TinyTask,
@@ -10,38 +11,44 @@ export const TinyTaskContext = React.createContext<TinyTaskStore>(
 );
 
 const TinyTaskProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tasks, setTasks] = React.useState<TinyTask[]>([]);
+  const { setLocalStorage, value: localStorageValue } =
+    useLocalStorage<TinyTask[]>("tiny-task-store");
+
+  const [tasks, setTasks] = React.useState<TinyTask[]>(localStorageValue);
 
   const addTask = useCallback(
     (task: TinyTask) => {
       setTasks([...tasks, task]);
+      setLocalStorage([...tasks, task]);
     },
-    [tasks],
+    [setLocalStorage, tasks],
   );
 
   const removeTask = useCallback(
     (id: string) => {
       setTasks(tasks.filter((task) => task.id !== id));
+      setLocalStorage(tasks.filter((task) => task.id !== id));
     },
-    [tasks],
+    [setLocalStorage, tasks],
   );
 
   const updateTask = useCallback(
     (task: TinyTask) => {
       setTasks(tasks.map((t) => (t.id === task.id ? task : t)));
+      setLocalStorage(tasks.map((t) => (t.id === task.id ? task : t)));
     },
-    [tasks],
+    [setLocalStorage, tasks],
   );
 
   const doneTask = useCallback(
     (taskId: string) => {
-      setTasks(
+      setLocalStorage(
         tasks.map((task) =>
           task.id === taskId ? { ...task, status: "DONE" } : task,
         ),
       );
     },
-    [tasks],
+    [setLocalStorage, tasks],
   );
 
   const tinyTaskContextValue = useMemo(
