@@ -9,53 +9,58 @@ import {
 import { green, red, yellow } from "@mui/material/colors";
 import theme from "../../Theme/default";
 import { ModalContext } from "../../Context/modalStore";
-import { priorityDetails, TinyTaskContext } from "../../Context/TinyTaskStore";
+import { TinyTaskContext } from "../../Context/TinyTaskStore";
 import { TinyTask } from "../../Models/TinyTaskStore.model";
+import useForm from "../../hooks/useForm";
 
 interface EditTaskProps {
   task: TinyTask;
 }
 
 const EditTask: React.FC<EditTaskProps> = ({ task }) => {
-  const [taskValues, setTaskValues] = React.useState<TinyTask>({
+  const { onClose } = useContext(ModalContext);
+  const { updateTask } = useContext(TinyTaskContext);
+
+  const initialValues: TinyTask = {
     id: task.id,
     title: task.title,
     description: task.description,
     priority: task.priority,
     extra: task.extra,
     status: task.status,
-  });
-
-  const { onClose } = useContext(ModalContext);
-  const { updateTask } = useContext(TinyTaskContext);
-
-  const fieldOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskValues({
-      ...taskValues,
-      [event.target.name]: event.target.value,
-    });
   };
-
-  const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskValues({
-      ...taskValues,
-      priority: priorityDetails[event.target.value],
-    });
-  };
-
-  const priorityProps = (item: string) => ({
-    checked: taskValues.priority.cw === item,
-    onChange: handlePriorityChange,
-    value: item,
-    name: `priority`,
-    inputProps: { "aria-label": item },
-    fontSize: 128,
-  });
 
   const editTaskHandler = () => {
     updateTask(taskValues);
     onClose();
   };
+
+  const errorValidation = (values: TinyTask) => {
+    const errors: { [key: string]: string } = {};
+    if (values.title.trim().length === 0) {
+      errors.title = "Title is required";
+    }
+    if (values.description.trim().length === 0) {
+      errors.description = "Description is required";
+    }
+    return errors;
+  };
+
+  const {
+    values: taskValues,
+    errors,
+    handleChange,
+    handleSubmit,
+  } = useForm(initialValues, editTaskHandler, errorValidation);
+
+  const priorityProps = (item: string) => ({
+    checked: taskValues.priority.cw === item,
+    onChange: handleChange,
+    value: item,
+    name: `priority`,
+    inputProps: { "aria-label": item },
+    fontSize: 128,
+  });
 
   return (
     <>
@@ -63,8 +68,9 @@ const EditTask: React.FC<EditTaskProps> = ({ task }) => {
         name="title"
         placeholder="Task Title"
         fullWidth
-        onChange={fieldOnChange}
+        onChange={handleChange}
         value={taskValues.title}
+        error={errors?.title !== undefined}
       />
       <TextField
         name="description"
@@ -72,14 +78,15 @@ const EditTask: React.FC<EditTaskProps> = ({ task }) => {
         multiline
         fullWidth
         minRows={4}
-        onChange={fieldOnChange}
+        onChange={handleChange}
         value={taskValues.description}
+        error={errors?.title !== undefined}
       />
       <TextField
         name="extra"
         placeholder="Gifts and KPI for this task ;)"
         fullWidth
-        onChange={fieldOnChange}
+        onChange={handleChange}
         value={taskValues.extra}
       />
 
@@ -146,7 +153,8 @@ const EditTask: React.FC<EditTaskProps> = ({ task }) => {
       <Button
         variant="contained"
         sx={{ width: "50%" }}
-        onClick={editTaskHandler}
+        onClick={() => handleSubmit()}
+        disabled={Object.keys(errors).length > 0}
       >
         Update
       </Button>
