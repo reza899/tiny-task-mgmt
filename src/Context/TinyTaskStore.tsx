@@ -42,6 +42,11 @@ const TinyTaskProvider = ({ children }: { children: React.ReactNode }) => {
 
   const doneTask = useCallback(
     (taskId: string) => {
+      setTasks(
+        tasks.map((task) =>
+          task.id === taskId ? { ...task, status: "DONE" } : task,
+        ),
+      );
       setLocalStorage(
         tasks.map((task) =>
           task.id === taskId ? { ...task, status: "DONE" } : task,
