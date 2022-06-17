@@ -10,7 +10,7 @@ const App = () => {
       container
       minHeight="100vh"
       flexDirection="column"
-      sx={{ padding: "48px" }}
+      sx={{ padding: "48px 196px" }}
     >
       <TinyTaskProvider>
         <ModalProvider>

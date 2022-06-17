@@ -54,12 +54,16 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, actionable }) => {
           <PriorityCircle task={task} size="medium" />
         </Box>
         {actionable && (
-          <Box>
+          <Box mt={1}>
             <Button
               onClick={doneTaskHandler}
               variant="contained"
               color="primary"
-              sx={{ border: "1px solid", maxHeight: "20px" }}
+              sx={{
+                border: "1px solid",
+                maxHeight: "20px",
+                marginRight: "8px",
+              }}
               disabled={task.status === "DONE"}
             >
               Done Task

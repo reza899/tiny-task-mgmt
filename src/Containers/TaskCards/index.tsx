@@ -1,6 +1,6 @@
 // import { Grid } from "@mui/material";
 import React, { useContext } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, IconButton } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmptyBoard from "../../Components/EmptyBoard";
 import TaskCard from "../../Components/TaskCard";
@@ -41,15 +41,15 @@ const TaskCards = () => {
               ))}
           </Grid>
 
-          <Grid
+          <IconButton
             onClick={() => setOpen(<AddTask />)}
             sx={{
               position: "fixed",
-              width: "100vw",
               bottom: 0,
+              right: 0,
               display: "flex",
               justifyContent: "flex-end",
-              padding: "68px",
+              margin: "68px",
             }}
           >
             <AddCircleIcon
@@ -57,7 +57,7 @@ const TaskCards = () => {
               color="warning"
               style={{ height: "80px", width: "80px" }}
             />
-          </Grid>
+          </IconButton>
         </>
       ) : (
         <EmptyBoard />
