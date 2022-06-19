@@ -2,7 +2,7 @@
 This is tiny application written in React and Typescript
 
 ## Todo
-- [ ] Add validation to add and edit form
+- [x] Add validation to add and edit form
+- [x] Store and retrive from localStorage
 - [ ] UI and style need to be consistent
-- [ ] Store and retrive from localStorage
 - [ ] Add ErrorBoundary
