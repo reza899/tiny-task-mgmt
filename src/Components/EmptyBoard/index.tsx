@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ModalContext } from "../../Context/modalStore";
 import AddTask from "../AddTask";
@@ -8,6 +8,18 @@ const EmptyBoard = () => {
   const { setOpen, isOpen } = useContext(ModalContext);
   const { user, loginWithRedirect, logout, isLoading, isAuthenticated } =
     useAuth0();
+
+  const loginRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    let timer: any = null;
+    if (!isAuthenticated) {
+      timer = setTimeout(() => loginRef.current!.focus(), 1000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isAuthenticated]);
 
   return (
     <Grid
@@ -25,7 +37,17 @@ const EmptyBoard = () => {
       {!isOpen && (
         <Box>
           {!isLoading && !isAuthenticated && (
-            <Button onClick={loginWithRedirect}>Login</Button>
+            <Button
+              ref={loginRef}
+              sx={{
+                "&:focus": {
+                  fontSize: 25,
+                },
+              }}
+              onClick={loginWithRedirect}
+            >
+              Login
+            </Button>
           )}
           {!isLoading && isAuthenticated && user && (
             <Button onClick={() => logout()}>Logout</Button>
